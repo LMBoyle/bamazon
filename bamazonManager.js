@@ -57,7 +57,7 @@ function promptList() {
   })
 };
 
-//* show all the products
+//* Show all the products
 function viewProducts() {
   connection.query("SELECT * FROM products", function (err, res) {
     if (err) throw err;
@@ -66,7 +66,7 @@ function viewProducts() {
   })
 }
 
-// TODO show products with inventory lowers than 5
+//* Show products with inventory lower than 5
 function viewInventory() {
   connection.query("SELECT * FROM products WHERE stock_quantity <=5", function (err, res) {
     if (err) throw err;
@@ -75,9 +75,59 @@ function viewInventory() {
   });
 }
 
-// TODO allow user to add any amount of inventory to any product
+//* Allow user to add any amount of inventory to any product
 function addInventory() {
+  connection.query("SELECT * FROM products", function (err, res) {
+    if (err) throw err;
 
+    inquirer.prompt([
+      {
+        type: "input",
+        name: "whatItem",
+        message: "What's the id of the item you want to update?",
+        validate: function(input) {
+          if (isNaN(input)) {
+            return "Please Enter a Number";
+          }
+          else {
+            return true
+          }
+        }
+      },
+      {
+        type: "input",
+        name: "howMany",
+        message: "How many do you want to add?",
+        validate: function(input) {
+          if (isNaN(input)) {
+            return "Please Enter a Number";
+          }
+          else {
+            return true
+          }
+        }
+      },
+    ]).then(function(ans){
+      var chosenItem;
+      for (var i = 0; i < res.length; i++) {
+        if (res[i].item_id === parseInt(ans.whatItem)) {
+          chosenItem = res[i]
+        }
+      }
+      var quantity = chosenItem.stock_quantity + parseInt(ans.howMany);
+
+
+      var sql = "UPDATE products SET stock_quantity = ? WHERE product_name = ?"
+      connection.query(sql, [quantity, chosenItem.product_name], function (err, res) {
+        if (err) throw err;
+        console.log("\n==================================\n");
+        console.log(colors.grey("Updating products..."))
+        console.log(colors.green("You now have " + quantity + " of " + chosenItem.product_name));
+        console.log("\n==================================\n");
+        promptList();
+      });
+    });
+  });
 }
 
 // TODO allow user to add a new product
