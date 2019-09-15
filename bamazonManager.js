@@ -122,7 +122,7 @@ function addInventory() {
         if (err) throw err;
         console.log("\n==================================\n");
         console.log(colors.grey("Updating products..."))
-        console.log(colors.green("You now have " + quantity + " of " + chosenItem.product_name));
+        console.log(colors.green("You now have " + quantity + " " + chosenItem.product_name + "(s)"));
         console.log("\n==================================\n");
         promptList();
       });
@@ -130,8 +130,59 @@ function addInventory() {
   });
 }
 
-// TODO allow user to add a new product
+// Allow user to add a new product
 function addProduct() {
+  inquirer.prompt([
+    {
+      type: "input",
+      name: "productName",
+      message: "What item do you want to add?"
+    },
+    {
+      type: "list",
+      name: "departName",
+      message: "What department is it in?",
+      choices: ["Office", "Kitchen", "Electronics", "Garden", "Clothing", "Bedroom", "Games", "Automotive", "Beauty", "Books", "Health", "Pet", "Tools"],
+    },
+    {
+      type: "input",
+      name: "itemPrice",
+      message: "How much does the item cost?",
+      validate: function(input) {
+        if (isNaN(input)) {
+          return "Please Enter a Number";
+        }
+        else {
+          return true
+        }
+      }
+    },
+    {
+      type: "input",
+      name: "itemStock",
+      message: "How many do you have in stock?",
+      validate: function(input) {
+        if (isNaN(input)) {
+          return "Please Enter a Number";
+        }
+        else {
+          return true
+        }
+      }
+    },
+  ]).then(function(ans) {
+    var sql = "INSERT INTO products SET product_name = ?, department_name = ?, price = ?, stock_quantity = ?";
+    var answers = [ans.productName, ans.departName, ans.itemPrice, ans.itemStock];
+
+    connection.query(sql, answers, function(err, res) {
+      if (err) throw err;
+      console.log("\n==================================\n");
+      console.log(colors.grey("Adding product..."))
+      console.log(colors.green(ans.productName + " has been added!"));
+      console.log("\n==================================\n");
+      promptList();
+    })
+  })
 
 }
 
