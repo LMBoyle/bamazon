@@ -66,9 +66,51 @@ function viewProductSales() {
   })
 }
 
+//* Allow 'supervisor' to add a department
 function addDepartment() {
+  var sql = "SELECT * FROM departments";
+  connection.query(sql, function (err, res){
+    if (err) throw err;
+    console.log(res[2].department_name)
 
-}
+    inquirer.prompt([
+      {
+        type: "input",
+        name: "departName",
+        message: "What department do you want to add?",
+        validate: function(input) {
+          for (var d = 0; d < res.length; d++) {
+            if (input === res[d].department_name) {
+              return "Department already exists";
+            }
+          };
+          return true;
+        },
+      },
+      {
+        type: "input",
+        name: "overHead",
+        message: "What are the overhead costs?",
+        validate: function(input) {
+          if (isNaN(input)) {
+            return "Please Enter a Number";
+          }
+          return true;
+        }
+      }
+    ]).then(function(ans) {
+      var sql = "INSERT INTO departments SET department_name = ?, over_head_costs = ?";
+      connection.query(sql, [ans.departName, ans.overHead], function(err, res) {
+        if (err) throw err;
+        console.log("\n==================================\n");
+        console.log(colors.grey("Adding department..."))
+        console.log(colors.green(ans.departName + " has been added!"));
+        console.log("\n==================================\n");
+        promptSupList();
+      })
+    });
+  });
+};
 
 function endSup() {
   connection.end();

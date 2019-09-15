@@ -64,7 +64,7 @@ function viewProducts() {
   connection.query("SELECT * FROM products", function (err, res) {
     if (err) throw err;
     console.table(res);
-    promptList();
+    promptManList();
   })
 }
 
@@ -73,7 +73,7 @@ function viewInventory() {
   connection.query("SELECT * FROM products WHERE stock_quantity <=5", function (err, res) {
     if (err) throw err;
     console.table(res);
-    promptList();
+    promptManList();
   });
 }
 
@@ -126,7 +126,7 @@ function addInventory() {
         console.log(colors.grey("Updating products..."))
         console.log(colors.green("You now have " + quantity + " " + chosenItem.product_name + "(s)"));
         console.log("\n==================================\n");
-        promptList();
+        promptManList();
       });
     });
   });
@@ -195,7 +195,7 @@ function addProduct() {
       console.log(colors.grey("Adding product..."))
       console.log(colors.green(ans.productName + " has been added!"));
       console.log("\n==================================\n");
-      promptList();
+      promptManList();
     })
   })
 
