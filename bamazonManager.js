@@ -68,7 +68,11 @@ function viewProducts() {
 
 // TODO show products with inventory lowers than 5
 function viewInventory() {
-
+  connection.query("SELECT * FROM products WHERE stock_quantity <=5", function (err, res) {
+    if (err) throw err;
+    console.table(res);
+    promptList();
+  });
 }
 
 // TODO allow user to add any amount of inventory to any product
