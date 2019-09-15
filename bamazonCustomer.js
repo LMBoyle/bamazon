@@ -1,6 +1,7 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
-var consoleTable = require("console.table")
+var consoleTable = require("console.table");
+var colors = require("colors");
 
 var choiceArr = [];
 
@@ -28,7 +29,7 @@ function makeTable() {
   })
 }
 
-// Prompt the user what item to buy and how many
+//* Prompt the user what item to buy and how many
 function buyProduct() {
   connection.query("SELECT * FROM products", function (err, res) {
     if (err) throw err;
@@ -63,14 +64,42 @@ function buyProduct() {
         var sql = "UPDATE products SET stock_quantity = ? WHERE product_name = ?"
         connection.query(sql, [quaLeft, chosenItem.product_name], function (err, res) {
           if (err) throw err;
-          console.log("Your total is ...")
+          var total = chosenItem.price * parseInt(ans.howMany)
+          console.log("\n==================================\n");
+          console.log(colors.grey(ans.howMany + " " + chosenItem.product_name + " at $" + chosenItem.price + " each..."))
+          console.log(colors.green("Your total is: $" + total));
+          console.log("\n==================================\n");
+          keepShopping();
         })
       }
       else {
-        console.log("Not enough in stock")
+        console.log("\n==================================\n");
+        console.log("Not enough in stock".red);
+        console.log("\n==================================\n");
+        keepShopping();
       }
-
-      connection.end();
     });
   });
+}
+
+function keepShopping() {
+  inquirer
+    .prompt([
+      {
+        type: "confirm",
+        name: "shopping",
+        message: "Do you want to keep shopping?",
+        default: true
+      }
+    ]).then(function(ans){
+      if (ans.shopping) {
+        buyProduct()
+      }
+      else {
+        console.log("\n==================================\n");
+        console.log("Thank you. Come again soon".green);
+        console.log("\n==================================\n");
+        connection.end();
+      }
+    })
 }
