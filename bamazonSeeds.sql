@@ -10,6 +10,7 @@ CREATE TABLE products (
   department_name VARCHAR(45) NOT NULL,
   price DECIMAL(10,2) NULL,
   stock_quantity INT NULL,
+  product_sales INT NULL,
   PRIMARY KEY (item_id)
 );
 
@@ -25,3 +26,9 @@ INSERT INTO products (product_name, department_name, price, stock_quantity) VALU
   ("Gym Bag", "Sports", 23.99, 37),
   ("Czech Games Codenames", "Games", 16.68, 76);
 	
+CREATE TABLE departments (
+  department_id INT NOT NULL AUTO_INCREMENT,
+  department_name VARCHAR(45) NOT NULL,
+  over_head_costs INT,
+  PRIMARY KEY (department_id)
+);

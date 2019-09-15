@@ -24,7 +24,7 @@ connection.connect(function(err) {
 
 // FUNCTIONS ========================================================================
 
-//* Prompt user on what they want to do
+//* Prompt 'manager' on what they want to do
 function promptList() {
   inquirer.prompt([
     {
@@ -75,7 +75,7 @@ function viewInventory() {
   });
 }
 
-//* Allow user to add any amount of inventory to any product
+//* Allow 'manager' to add any amount of inventory to any product
 function addInventory() {
   connection.query("SELECT * FROM products", function (err, res) {
     if (err) throw err;
@@ -130,7 +130,7 @@ function addInventory() {
   });
 }
 
-// Allow user to add a new product
+//* Allow 'manager' to add a new product
 function addProduct() {
   inquirer.prompt([
     {

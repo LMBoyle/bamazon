@@ -75,8 +75,9 @@ function buyProduct() {
 
       if (chosenItem.stock_quantity >= parseInt(ans.howMany)) {
         var quaLeft = chosenItem.stock_quantity - parseInt(ans.howMany);
-        var sql = "UPDATE products SET stock_quantity = ? WHERE product_name = ?"
-        connection.query(sql, [quaLeft, chosenItem.product_name], function (err, res) {
+        var sales = chosenItem.product_sales + (chosenItem.price * parseInt(ans.howMany));
+        var sql = "UPDATE products SET stock_quantity = ?, product_sales = ?  WHERE product_name = ?"
+        connection.query(sql, [quaLeft, sales, chosenItem.product_name], function (err, res) {
           if (err) throw err;
           var total = chosenItem.price * parseInt(ans.howMany)
           console.log("\n==================================\n");
