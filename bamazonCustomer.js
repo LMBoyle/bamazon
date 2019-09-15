@@ -40,24 +40,40 @@ function buyProduct() {
 
     inquirer.prompt([
       {
-        type: "number",
+        type: "input",
         name: "whatItem",
         message: "What's the id of the item you want to buy?",
+        validate: function(input) {
+          if (isNaN(input)) {
+            return "Please Enter a Number";
+          }
+          else {
+            return true
+          }
+        }
       },
       {
-        type: "number",
+        type: "input",
         name: "howMany",
-        message: "How many do you want to buy?"
+        message: "How many do you want to buy?",
+        validate: function(input) {
+          if (isNaN(input)) {
+            return "Please Enter a Number";
+          }
+          else {
+            return true
+          }
+        }
       },
     ]).then(function(ans){
       var chosenItem;
       for (var i = 0; i < res.length; i++) {
-        if (res[i].item_id === ans.whatItem) {
+        if (res[i].item_id === parseInt(ans.whatItem)) {
           chosenItem = res[i]
         }
       }
 
-      if (chosenItem.stock_quantity > parseInt(ans.howMany)) {
+      if (chosenItem.stock_quantity >= parseInt(ans.howMany)) {
         var quaLeft = chosenItem.stock_quantity - parseInt(ans.howMany);
         var sql = "UPDATE products SET stock_quantity = ? WHERE product_name = ?"
         connection.query(sql, [quaLeft, chosenItem.product_name], function (err, res) {
@@ -65,7 +81,7 @@ function buyProduct() {
           var total = chosenItem.price * parseInt(ans.howMany)
           console.log("\n==================================\n");
           console.log(colors.grey(ans.howMany + " " + chosenItem.product_name + " at $" + chosenItem.price + " each..."))
-          console.log(colors.green("Your total is: $" + total));
+          console.log(colors.green("Your total is: $" + total.toFixed(2)));
           console.log("\n==================================\n");
           keepShopping();
         })
