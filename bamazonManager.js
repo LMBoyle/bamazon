@@ -24,6 +24,7 @@ connection.connect(function(err) {
 
 // FUNCTIONS ========================================================================
 
+//* Prompt user on what they want to do
 function promptList() {
   inquirer.prompt([
     {
@@ -56,18 +57,26 @@ function promptList() {
   })
 };
 
+//* show all the products
 function viewProducts() {
-
+  connection.query("SELECT * FROM products", function (err, res) {
+    if (err) throw err;
+    console.table(res);
+    promptList();
+  })
 }
 
+// TODO show products with inventory lowers than 5
 function viewInventory() {
 
 }
 
+// TODO allow user to add any amount of inventory to any product
 function addInventory() {
 
 }
 
+// TODO allow user to add a new product
 function addProduct() {
 
 }
