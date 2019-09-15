@@ -1,9 +1,11 @@
+// VARIABLES ========================================================================
+
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 var consoleTable = require("console.table");
 var colors = require("colors");
 
-var choiceArr = [];
+// DATABASE =========================================================================
 
 //* Create the connection information for the sql database
 var connection = mysql.createConnection({
@@ -19,6 +21,8 @@ connection.connect(function(err) {
   if (err) throw err;
   makeTable();
 });
+
+// FUNCTIONS ========================================================================
 
 //* Get data from database and make table
 function makeTable() {
@@ -36,15 +40,9 @@ function buyProduct() {
 
     inquirer.prompt([
       {
-        type: "rawlist",
+        type: "number",
         name: "whatItem",
-        message: "What item you want to buy?",
-        choices: function(){
-          for (var i = 0; i < res.length; i++) {
-            choiceArr.push(res[i].product_name);
-          }
-          return choiceArr;
-        }
+        message: "What's the id of the item you want to buy?",
       },
       {
         type: "number",
@@ -54,7 +52,7 @@ function buyProduct() {
     ]).then(function(ans){
       var chosenItem;
       for (var i = 0; i < res.length; i++) {
-        if (res[i].product_name === ans.whatItem) {
+        if (res[i].item_id === ans.whatItem) {
           chosenItem = res[i]
         }
       }
@@ -82,6 +80,7 @@ function buyProduct() {
   });
 }
 
+//* Prompt user if they want to keep shopping
 function keepShopping() {
   inquirer
     .prompt([
