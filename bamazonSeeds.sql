@@ -47,3 +47,8 @@ INSERT INTO departments (department_name, over_head_costs) VALUES
   ("Health", 2180),
   ("Pet", 3618),
   ("Tools", 2848);
+
+select product_name, departments.department_name, product_sales
+from products
+inner join departments 
+ON departments.department_name = products.department_name

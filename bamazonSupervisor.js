@@ -19,19 +19,19 @@ var connection = mysql.createConnection({
 //* Connect to the mysql server and sql database
 connection.connect(function(err) {
   if (err) throw err;
-  promptList();
+  promptSupList();
 });
 
 // FUNCTIONS ========================================================================
 
 //* Prompt 'supervisor' on what they want to do
-function promptList() {
+function promptSupList() {
   inquirer.prompt([
     {
       type: "list",
       name: "whatToDo",
       message: "What would you like to do?",
-      choices: ["View Products for Sale", "View Low Inventory", "Add to Inventory", "Add New Product", "Exit"]
+      choices: ["View Product Sales by Department", "Create New Department", "Exit"]
     }
   ]).then(function(ans){
     switch (ans.whatToDo) {
@@ -42,23 +42,34 @@ function promptList() {
         addDepartment();
         break;
       case "Exit":
-        end();
+        endSup();
         break;
       default:
-        end();
+        endSup();
         break;
     };
   });
 };
 
+//* Show 'supervisor' a table of departments and costs/profits
 function viewProductSales() {
+  var sql = "SELECT department_id, departments.department_name, SUM(product_sales) AS product_sales, over_head_costs, ((SUM(product_sales)) - over_head_costs ) AS total_profit "; 
+  sql += "FROM departments ";
+  sql += "LEFT JOIN products "; 
+  sql += "ON departments.department_name = products.department_name "; 
+  sql += "GROUP BY departments.department_name";
 
+  connection.query(sql, function (err, res) {
+    if (err) throw err;
+    console.table(res);
+    promptSupList();
+  })
 }
 
 function addDepartment() {
 
 }
 
-function end() {
+function endSup() {
   connection.end();
 }

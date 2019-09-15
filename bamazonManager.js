@@ -21,13 +21,13 @@ var connection = mysql.createConnection({
 //* Connect to the mysql server and sql database
 connection.connect(function(err) {
   if (err) throw err;
-  promptList();
+  promptManList();
 });
 
 // FUNCTIONS ========================================================================
 
 //* Prompt 'manager' on what they want to do
-function promptList() {
+function promptManList() {
   inquirer.prompt([
     {
       type: "list",
@@ -50,10 +50,10 @@ function promptList() {
         pushDepartments();
         break;
       case "Exit":
-        end();
+        endMan();
         break;
       default:
-        end();
+        endMan();
         break;
     }
   })
@@ -201,6 +201,6 @@ function addProduct() {
 
 }
 
-function end() {
+function endMan() {
   connection.end();
 }
