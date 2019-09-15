@@ -5,6 +5,8 @@ var inquirer = require("inquirer");
 var consoleTable = require("console.table");
 var colors = require("colors");
 
+var signIn = require("./bamazonSignIn");
+
 // DATABASE =========================================================================
 
 //* Create the connection information for the sql database
@@ -14,12 +16,6 @@ var connection = mysql.createConnection({
   user: "root",
   password: "root",
   database: "bamazon"
-});
-
-//* Connect to the mysql server and sql database
-connection.connect(function(err) {
-  if (err) throw err;
-  promptSupList();
 });
 
 // FUNCTIONS ========================================================================
@@ -113,5 +109,7 @@ function addDepartment() {
 };
 
 function endSup() {
-  connection.end();
+  signIn.end();
 }
+
+module.exports = methods;

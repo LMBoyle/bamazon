@@ -5,6 +5,8 @@ var inquirer = require("inquirer");
 var consoleTable = require("console.table");
 var colors = require("colors");
 
+var signIn = require("./bamazonSignIn");
+
 var departmentNames = [];
 
 // DATABASE =========================================================================
@@ -16,12 +18,6 @@ var connection = mysql.createConnection({
   user: "root",
   password: "root",
   database: "bamazon"
-});
-
-//* Connect to the mysql server and sql database
-connection.connect(function(err) {
-  if (err) throw err;
-  promptManList();
 });
 
 // FUNCTIONS ========================================================================
@@ -91,9 +87,7 @@ function addInventory() {
           if (isNaN(input)) {
             return "Please Enter a Number";
           }
-          else {
-            return true
-          }
+          return true
         }
       },
       {
@@ -104,9 +98,7 @@ function addInventory() {
           if (isNaN(input)) {
             return "Please Enter a Number";
           }
-          else {
-            return true
-          }
+          return true
         }
       },
     ]).then(function(ans){
@@ -167,9 +159,7 @@ function addProduct() {
         if (isNaN(input)) {
           return "Please Enter a Number";
         }
-        else {
-          return true
-        }
+        return true
       }
     },
     {
@@ -180,9 +170,7 @@ function addProduct() {
         if (isNaN(input)) {
           return "Please Enter a Number";
         }
-        else {
-          return true
-        }
+        return true
       }
     },
   ]).then(function(ans) {
@@ -204,3 +192,5 @@ function addProduct() {
 function endMan() {
   connection.end();
 }
+
+module.exports = methods;
