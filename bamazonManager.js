@@ -5,6 +5,8 @@ var inquirer = require("inquirer");
 var consoleTable = require("console.table");
 var colors = require("colors");
 
+var departmentNames = [];
+
 // DATABASE =========================================================================
 
 //* Create the connection information for the sql database
@@ -45,7 +47,7 @@ function promptList() {
         addInventory();
         break;
       case "Add New Product":
-        addProduct();
+        pushDepartments();
         break;
       case "Exit":
         end();
@@ -130,6 +132,19 @@ function addInventory() {
   });
 }
 
+//* Get name of departments from database to use in adding new product
+function pushDepartments() {
+  var sql =  "SELECT department_name FROM departments" 
+  connection.query(sql, function (err, res) {
+    if (err) throw err;
+
+    for (var i = 0; i < res.length; i++) {
+      departmentNames.push(res[i].department_name)
+    }
+  })
+  addProduct();
+}
+
 //* Allow 'manager' to add a new product
 function addProduct() {
   inquirer.prompt([
@@ -142,7 +157,7 @@ function addProduct() {
       type: "list",
       name: "departName",
       message: "What department is it in?",
-      choices: ["Office", "Kitchen", "Electronics", "Garden", "Clothing", "Bedroom", "Games", "Automotive", "Beauty", "Books", "Health", "Pet", "Tools"],
+      choices: departmentNames,
     },
     {
       type: "input",

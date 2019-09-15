@@ -32,3 +32,18 @@ CREATE TABLE departments (
   over_head_costs INT,
   PRIMARY KEY (department_id)
 );
+
+INSERT INTO departments (department_name, over_head_costs) VALUES
+  ("Office", 1000),
+  ("Kitchen", 3555),
+  ("Electronics", 2046),
+  ("Garden", 4558),
+  ("Clothing", 1285),
+  ("Bedroom", 4514),
+  ("Games", 3601),
+  ("Automotive", 1063),
+  ("Beauty", 1024),
+  ("Books", 1517),
+  ("Health", 2180),
+  ("Pet", 3618),
+  ("Tools", 2848);
