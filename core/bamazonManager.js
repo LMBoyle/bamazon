@@ -8,7 +8,7 @@ var departmentNames = [];
 
 // DATABASE =========================================================================
 
-var db = require("./bamazonDB.js");
+var db = require("../db/bamazonDB");
 var connection = db.dbConnection();
 
 // FUNCTIONS ========================================================================

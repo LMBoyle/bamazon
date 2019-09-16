@@ -1,28 +1,11 @@
 // VARIABLES ========================================================================
 
-var mysql = require("mysql");
 var inquirer = require("inquirer");
 var colors = require("colors");
 
-var cust = require("./bamazonCustomer.js");
-var man = require("./bamazonManager.js");
-var sup = require("./bamazonSupervisor.js");
-
-// DATABASE =========================================================================
-/*   //* Create the connection information for the sql database
-  var connection = mysql.createConnection({
-    host: "localhost",
-    port: 3306,
-    user: "root",
-    password: "root",
-    database: "bamazon"
-  });
-
-  //* Connect to the mysql server and sql database
-  connection.connect(function(err) {
-    if (err) throw err;
-    whoDis();
-  }); */
+var cust = require("./core/bamazonCustomer");
+var man = require("./core/bamazonManager");
+var sup = require("./core/bamazonSupervisor");
 
 // FUNCTIONS ========================================================================
 //* Prompt user on who they are

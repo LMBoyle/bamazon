@@ -7,7 +7,7 @@ var colors = require("colors");
 
 // DATABASE =========================================================================
 
-var db = require("./bamazonDB.js");
+var db = require("../db/bamazonDB");
 var connection = db.dbConnection();
 
 // FUNCTIONS ========================================================================
@@ -71,7 +71,7 @@ var custMethods = {
             if (err) throw err;
             var total = chosenItem.price * parseInt(ans.howMany)
             console.log("\n==================================\n");
-            console.log(colors.grey(ans.howMany + " " + chosenItem.product_name + " at $" + chosenItem.price + " each..."))
+            console.log(colors.grey(ans.howMany + " " + chosenItem.product_name + "(s) at $" + chosenItem.price + " each..."))
             console.log(colors.green("Your total is: $" + total.toFixed(2)));
             console.log("\n==================================\n");
             custMethods.keepShopping();
