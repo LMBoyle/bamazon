@@ -1,6 +1,5 @@
 // VARIABLES ========================================================================
 
-var mysql = require("mysql");
 var inquirer = require("inquirer");
 var consoleTable = require("console.table");
 var colors = require("colors");
@@ -79,7 +78,7 @@ var manMethods = {
           name: "whatItem",
           message: "What's the id of the item you want to update?",
           validate: function(input) {
-            if (isNaN(input)) {
+            if (isNaN(input) || input == '') {
               return "Please Enter a Number";
             }
             return true
@@ -90,7 +89,7 @@ var manMethods = {
           name: "howMany",
           message: "How many do you want to add?",
           validate: function(input) {
-            if (isNaN(input)) {
+            if (isNaN(input) || input == '') {
               return "Please Enter a Number";
             }
             return true
@@ -138,7 +137,13 @@ var manMethods = {
       {
         type: "input",
         name: "productName",
-        message: "What item do you want to add?"
+        message: "What item do you want to add?",
+        validate: function(input) {
+          if (input == '') {
+            return "Please Enter an Item";
+          }
+          return true
+        }
       },
       {
         type: "list",
@@ -151,7 +156,7 @@ var manMethods = {
         name: "itemPrice",
         message: "How much does the item cost?",
         validate: function(input) {
-          if (isNaN(input)) {
+          if (isNaN(input) || input == '') {
             return "Please Enter a Number";
           }
           return true
@@ -162,7 +167,7 @@ var manMethods = {
         name: "itemStock",
         message: "How many do you have in stock?",
         validate: function(input) {
-          if (isNaN(input)) {
+          if (isNaN(input) || input == '') {
             return "Please Enter a Number";
           }
           return true
@@ -183,7 +188,7 @@ var manMethods = {
     });
   },
 
-  // End connection
+  //* End connection
   manLogOff: function manLogOff() {
     console.log("\n==================================\n");
     console.log("Logging off".grey);

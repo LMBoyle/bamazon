@@ -1,6 +1,5 @@
 // VARIABLES ========================================================================
 
-var mysql = require("mysql");
 var inquirer = require("inquirer");
 var consoleTable = require("console.table");
 var colors = require("colors");
@@ -35,7 +34,7 @@ var custMethods = {
           name: "whatItem",
           message: "What's the id of the item you want to buy?",
           validate: function(input) {
-            if (isNaN(input)) {
+            if (isNaN(input) || input === '') {
               return "Please Enter a Number";
             }
             else {
@@ -48,7 +47,7 @@ var custMethods = {
           name: "howMany",
           message: "How many do you want to buy?",
           validate: function(input) {
-            if (isNaN(input)) {
+            if (isNaN(input) || input == '') {
               return "Please Enter a Number";
             }
             else {

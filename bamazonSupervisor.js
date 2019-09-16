@@ -1,6 +1,5 @@
 // VARIABLES ========================================================================
 
-var mysql = require("mysql");
 var inquirer = require("inquirer");
 var consoleTable = require("console.table");
 var colors = require("colors");
@@ -59,7 +58,6 @@ var supMethods = {
     var sql = "SELECT * FROM departments";
     connection.query(sql, function (err, res){
       if (err) throw err;
-      console.log(res[2].department_name)
 
       inquirer.prompt([
         {
@@ -71,6 +69,9 @@ var supMethods = {
               if (input === res[d].department_name) {
                 return "Department already exists";
               }
+              else if (input === '') {
+                return "Please Enter a Department"
+              }
             };
             return true;
           },
@@ -80,7 +81,7 @@ var supMethods = {
           name: "overHead",
           message: "What are the overhead costs?",
           validate: function(input) {
-            if (isNaN(input)) {
+            if (isNaN(input) || input === '') {
               return "Please Enter a Number";
             }
             return true;
@@ -100,7 +101,7 @@ var supMethods = {
     });
   },
 
-  // End connection
+  //* End connection
   supLogOff: function supLogOff() {
     console.log("\n==================================\n");
     console.log("Logging off".grey);
