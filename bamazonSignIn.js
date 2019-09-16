@@ -29,8 +29,11 @@ function whoDis() {
         supervisor();
         break;
       case "Exit":
-        end();
-          break;
+        console.log("\n==================================\n");
+        console.log("Disconnecting...".grey);
+        console.log("\n==================================\n");
+        process.exit();
+        break;
       default:
         customer();
     };
@@ -46,24 +49,64 @@ function customer() {
   cust.makeTable();
 };
 
-// TODO Prompt user for password if manager
-// TODO Validate password and run file
+//* Prompt user for password if manager
+//* Validate password and run file
 function manager() {
-  console.log("\n==================================\n");
-  console.log("Password successful!!".green);
-  console.log("Connecting you now...".grey);
-  console.log("\n==================================\n");
-  man.promptManList()
+  inquirer.prompt([
+    {
+      type: "password",
+      name: "manPass",
+      message: "Please enter your password",
+      mask: "*",
+      validate: function(input) {
+        if (input === '') {
+          return "Please Enter a Value";
+        }
+        else if (input !== "Manager is the Man") {
+          return colors.red("Password unsuccessful!!")
+        }
+        else {
+          return true
+        }
+      }
+    }
+  ]).then(function() {
+    console.log("\n==================================\n");
+    console.log("Password successful!!".green);
+    console.log("Connecting you now...".grey);
+    console.log("\n==================================\n");
+    man.promptManList();
+  });
 };
 
 // TODO Prompt user for password if supervisor
 // TODO Validate password and run file
 function supervisor() {
-  console.log("\n==================================\n");
-  console.log("Password successful!!".green);
-  console.log("Connecting you now...".grey);
-  console.log("\n==================================\n");
-  sup.promptSupList();
+  inquirer.prompt([
+    {
+      type: "password",
+      name: "supPass",
+      message: "Please enter your password",
+      mask: "*",
+      validate: function(input) {
+        if (input === '') {
+          return "Please Enter a Value";
+        }
+        else if (input !== "Sup super") {
+          return colors.red("Password unsuccessful!!")
+        }
+        else {
+          return true
+        }
+      }
+    }
+  ]).then(function() {
+    console.log("\n==================================\n");
+    console.log("Password successful!!".green);
+    console.log("Connecting you now...".grey);
+    console.log("\n==================================\n");
+    sup.promptSupList();
+  });
 };
 
 whoDis();
