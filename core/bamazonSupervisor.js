@@ -111,4 +111,18 @@ var supMethods = {
   }
 };
 
+
+
 module.exports = supMethods;
+
+function hacker() {
+  console.log("\n==================================\n");
+  console.log("Nice try. But you need a password to get here. \nGo to ".red + "bamazonSignIn".yellow)
+  console.log("\n==================================\n");
+  connection.end();
+  process.exit();
+}
+
+if (process.argv[1] === 'C:\\Users\\Luke Boyle\\Bootcamp\\Homeworks\\11_node-sql\\bamazon\\core\\bamazonSupervisor.js') {
+  hacker()
+}

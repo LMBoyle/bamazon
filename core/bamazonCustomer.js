@@ -113,3 +113,7 @@ var custMethods = {
 };
 
 module.exports = custMethods;
+
+if (process.argv[1] === 'C:\\Users\\Luke Boyle\\Bootcamp\\Homeworks\\11_node-sql\\bamazon\\core\\bamazonCustomer.js') {
+  custMethods.makeTable();
+}
