@@ -9,23 +9,31 @@ Homework assignment for UNC Coding Bootcamp to learn how to use node.js with MyS
 
 Use in a terminal.
 
-### Customer View
+Type `node bamazonSignIn.js` and follow prompts
 
-### Manager View
-
-### Supervisor View
-
-
-
+Customer View | Manager View | Supervisor View
+--------------|--------------|----------------
+Select **Customer** | Select **Manager** | Select **Supervisor** 
+No password required | Enter password **Manager is the Man** | Enter password **Sup super**
+Then you can 'buy' itmes, as long as there is enough stock | Then you can view all the products, view only the products with less than five in stock, add more to inventory or add a new product | Then you can view product sales for each department or add a new department
 
 ## Languages/Technologies 
 
 * JavaScript
 * Node
-* Inquirer
+* MySQL
 
-## Demo
-![Demo Gif](demo.gif)
+### NPM Packages
+* Inquirer
+* Console Table
+* Colors
+
+## Demos
+![Demo Customer Gif]()
+
+![Demo Manager Gif]()
+
+![Demo Supervisor Gif]()
 
 ## Links
 [Portfolio](https://lmboyle.github.io/)
