@@ -29,11 +29,17 @@ Then you can 'buy' itmes, as long as there is enough stock | Then you can view a
 * Colors
 
 ## Demos
-![Demo Customer Gif]()
+### Customer 
 
-![Demo Manager Gif]()
+![Demo Customer Gif](/assets/cust.gif)
 
-![Demo Supervisor Gif]()
+### Manager
+
+![Demo Manager Gif](/assets/manager.gif)
+
+### Supervisor
+
+![Demo Supervisor Gif](/assets/super.gif)
 
 ## Links
 [Portfolio](https://lmboyle.github.io/)
