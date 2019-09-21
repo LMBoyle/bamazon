@@ -39,7 +39,7 @@ Then you can 'buy' items, as long as there is enough stock | Then you can view a
 
 ### Supervisor
 
-![Demo Supervisor Gif](/assets/super.gif)
+![Demo Supervisor Gif](/assets/supervisor.gif)
 
 ## Links
 [Portfolio](https://lmboyle.github.io/)
