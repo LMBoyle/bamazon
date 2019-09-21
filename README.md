@@ -15,7 +15,7 @@ Customer View | Manager View | Supervisor View
 --------------|--------------|----------------
 Select **Customer** | Select **Manager** | Select **Supervisor** 
 No password required | Enter password **Manager is the Man** | Enter password **Sup super**
-Then you can 'buy' itmes, as long as there is enough stock | Then you can view all the products, view only the products with less than five in stock, add more to inventory or add a new product | Then you can view product sales for each department or add a new department
+Then you can 'buy' items, as long as there is enough stock | Then you can view all the products, view only the products with less than five in stock, add more to inventory or add a new product | Then you can view product sales for each department or add a new department
 
 ## Languages/Technologies 
 
