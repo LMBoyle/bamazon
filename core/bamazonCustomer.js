@@ -28,18 +28,27 @@ var custMethods = {
     connection.query(sql, function (err, res) {
       if (err) throw err;
 
+      var itemIds = []
+      for (var s = 0; s < res.length; s++) {
+        itemIds.push(res[s].item_id)
+      }
+
       inquirer.prompt([
         {
           type: "input",
           name: "whatItem",
           message: "What's the id of the item you want to buy?",
           validate: function(input) {
-            if (isNaN(input) || input === '') {
-              return "Please Enter a Number";
-            }
-            else {
-              return true
-            }
+            for (var i = 0; i < res.length; i++) {
+              // If input does not equal a number, alert the user
+              if (isNaN(input) || input === '') {
+                return "Please Enter a Number";
+              }
+              else if (parseInt(input) === res[i].item_id) {
+                return true
+              }
+            };
+            return "No such item"
           }
         },
         {
