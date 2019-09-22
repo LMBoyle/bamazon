@@ -28,11 +28,6 @@ var custMethods = {
     connection.query(sql, function (err, res) {
       if (err) throw err;
 
-      var itemIds = []
-      for (var s = 0; s < res.length; s++) {
-        itemIds.push(res[s].item_id)
-      }
-
       inquirer.prompt([
         {
           type: "input",

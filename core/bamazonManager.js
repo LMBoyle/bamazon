@@ -78,10 +78,16 @@ var manMethods = {
           name: "whatItem",
           message: "What's the id of the item you want to update?",
           validate: function(input) {
-            if (isNaN(input) || input == '') {
-              return "Please Enter a Number";
-            }
-            return true
+            for (var i = 0; i < res.length; i++) {
+              // If input does not equal a number, alert the user
+              if (isNaN(input) || input === '') {
+                return "Please Enter a Number";
+              }
+              else if (parseInt(input) === res[i].item_id) {
+                return true
+              }
+            };
+            return "No such item"
           }
         },
         {
@@ -153,8 +159,8 @@ var manMethods = {
       },
       {
         type: "input",
-        name: "itemPrice",
-        message: "How much does the item cost?",
+        name: "itemStock",
+        message: "How many do you have in stock?",
         validate: function(input) {
           if (isNaN(input) || input == '') {
             return "Please Enter a Number";
@@ -164,8 +170,8 @@ var manMethods = {
       },
       {
         type: "input",
-        name: "itemStock",
-        message: "How many do you have in stock?",
+        name: "itemPrice",
+        message: "How much does the item cost?",
         validate: function(input) {
           if (isNaN(input) || input == '') {
             return "Please Enter a Number";
@@ -179,8 +185,12 @@ var manMethods = {
 
       connection.query(sql, answers, function(err, res) {
         if (err) throw err;
+
         console.log("\n==================================\n");
         console.log(colors.grey("Adding product..."))
+        if (ans.itemPrice === "0") {
+          console.log(colors.red("Wow...cheap! Good luck making any money..."))
+        }
         console.log(colors.green(ans.productName + " has been added!"));
         console.log("\n==================================\n");
         manMethods.promptManList();
